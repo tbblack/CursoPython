@@ -1,5 +1,18 @@
 class Data:
-    SALAS = [[1, "LAB1"],[2, "LAB2"],[3, "LAB3"],[4, "LAB4"]]
+    SALAS = [[1, "LAB1"],[2, "LAB2"],
+             [3, "LAB3"],[4, "LAB4"],
+             [5, "LAB5"]]
+
+    PROFESSORES = [[1, "FREDSON"],[2, "JANIO"],
+                   [3, "SILVANO"],[4, "MARCO"],
+                   [5, "TAYSE"],[6, "LEANDRA"],
+                   [7, "TAMIRYS"],[8, "DOUGLAS"]]
+
+    DIAS_SEMANAS = [[1, "SEGUNDA"],[2, "TERCA"],
+                    [3, "QUARTA"],[4, "QUINTA"],
+                    [5, "SEXTA"],[6, "SABADO"]]
+    
+    MATERIAS = [[],[],[],[],[],[],[],[],[],[],[],[],[],[]]
 
 class Populacao:
     pass
@@ -42,13 +55,14 @@ class DiaSemana:
     def get_nome(self): return self._dia
     def __str__(self): return self._dia
 
-class Grade:
+class Aula:
     def __init__(self, id, materia):
         self._id = id
         self._materia = materia
         self._professor = None
         self._sala = None
         self._DiaSemana = None
+        self._Periodo = None
 
     def get_id(self): return self._id
     def get_materia(self): return self._materia
@@ -61,4 +75,9 @@ class Grade:
     def __str__(self):
         return str(self._materia.get_nome()) + "," + str(self._sala.get_numero()) + "," + str(self._professor.get_nome()) + "," + str(self._DiaSemana.get_dia())
 
+class Grade:
+    def __init__(self, id):
+        self._id = id
+        self._aula
+        pass
     
