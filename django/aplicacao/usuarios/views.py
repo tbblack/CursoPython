@@ -1,7 +1,37 @@
-from django.shortcuts import render
+from django.shortcuts import redirect, render
+from django.contrib.auth.models import User
 
 def cadastro(request):
-    return render(request, 'usuarios/cadastro.html')
+    if request.method == 'POST':
+        nome = request.POST['nome']
+        email = request.POST['email']
+        senha = request.POST['password']
+        senha2 = request.POST['password2']
+
+        # Validação se o nome esta vazio
+        if not nome.strip():
+            print('O campo nome não pode ficar em branco')
+            return redirect('cadastro')
+        # Validação se o email esta vazio
+        if not email.strip():
+            print('O campo email não pode ficar em branco')
+            return redirect('cadastro')
+        # Validação se a primeira senha é igual a segunda
+        if senha != senha2:
+            print('As senhas não são iguais')
+            return redirect('cadastro')
+        # Validação se o email ja esta cadastrado
+        if User.objects.filter(email=email).exists():
+            print('Usuario ja cadastrado')
+            return redirect('cadastro')     
+        # criado e salvando Usuario
+        user = User.objects.create_user(username=nome, email=email, password=senha)
+        user.save
+
+        print('Usuario criado com sucesso')
+        return redirect('login')
+    else:    
+        return render(request, 'usuarios/cadastro.html')
 
 def login(request):
     return render(request, 'usuarios/login.html')
