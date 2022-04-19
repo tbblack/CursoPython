@@ -4,7 +4,7 @@ from django.contrib import auth, messages
 from receitas.models import Receita
 
 def campo_vazio(campo):
-    return campo.strip()
+    return not campo.strip()
 
 def senhas_nao_sao_iguais(senha, senha2):
     return senha != senha2
@@ -31,8 +31,13 @@ def cadastro(request):
         # Validação se o email ja esta cadastrado
         if User.objects.filter(email=request.POST['email']).exists():
             messages.error(request, 'Usuario ja cadastrado')
-            return redirect('cadastro')   
-              
+            return redirect('cadastro') 
+
+        # Validação se o username ja esta cadastrado
+        if User.objects.filter(username=request.POST['nome']).exists():
+            messages.error(request, 'Usuario ja cadastrado')
+            return redirect('cadastro')    
+
         # criado e salvando Usuario
         user = User.objects.create_user(username=request.POST['nome'], email=request.POST['email'], password=request.POST['password'])
         user.save
@@ -45,20 +50,17 @@ def cadastro(request):
 def login(request):
 
     if request.method == 'POST':
-        email = request.POST['email']
-        senha = request.POST['senha']
-        
+
          # Validação se o email ou senha estão vazio
-        if email == "" or senha == "":
-            print('Os campos email e senha não podem ficar em branco')
+        if campo_vazio(request.POST['email']) or campo_vazio(request.POST['senha']):
+            messages.error(request, 'Os campos email e senha não podem ficar em branco')
             return redirect('login')
         
-        if User.objects.filter(email=email).exists():
-            nome = User.objects.filter(email=email).values_list('username', flat=True).get()
-            user = auth.authenticate(request, username=nome, password=senha)
+        if User.objects.filter(email=request.POST['email']).exists():
+            nome = User.objects.filter(email=request.POST['email']).values_list('username', flat=True).get()
+            user = auth.authenticate(request, username=nome, password=request.POST['senha'])
             if user is not None:
                 auth.login(request, user)
-                print('login realizado com sucesso')
                 return redirect('dashboard')
 
     return render(request, 'usuarios/login.html')
