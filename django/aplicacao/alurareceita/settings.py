@@ -32,7 +32,6 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
-    'pessoas',
     'receitas',
     'usuarios',
     'django.contrib.admin',
@@ -83,7 +82,7 @@ DATABASES = {
 
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
 
-        'NAME': 'alura_receitas',
+        'NAME': 'alura_receita',
 
         'USER': 'postgres',
 
