@@ -4,7 +4,7 @@ from django.contrib import auth, messages
 from receitas.models import Receita
 
 def cadastro(request):
-
+    """ Cadastra uma nova pessoa no sistema """
     if request.method == 'POST':
 
         # Validação se o nome esta vazio
@@ -42,7 +42,7 @@ def cadastro(request):
         return render(request, 'usuarios/cadastro.html')
 
 def login(request):
-
+    """ Realiza o login de uma pessoa no sistema """
     if request.method == 'POST':
 
          # Validação se o email ou senha estão vazio
@@ -60,12 +60,12 @@ def login(request):
     return render(request, 'usuarios/login.html')
 
 def logout(request):
-
+    """ Realiza o logout de uma pessoa no sistema """
     auth.logout(request)
     return redirect('index')
 
 def dashboard(request):
-
+    """ Busca receitas para a pagina de Dashboard """
     if request.user.is_authenticated:
         id = request.user.id
         receitas = Receita.objects.order_by('-date_receita').filter(pessoa=id)
@@ -77,7 +77,9 @@ def dashboard(request):
         return redirect('index')
 
 def campo_vazio(campo):
+    """ Valida se o campo esta vazio """
     return not campo.strip()
 
 def senhas_nao_sao_iguais(senha, senha2):
+    """ Valida se a senha 1 e senha 2 estão iguais """
     return senha != senha2
