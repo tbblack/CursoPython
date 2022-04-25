@@ -1,21 +1,37 @@
 from django.shortcuts import get_list_or_404, get_object_or_404, render, redirect
-from receitas.models import Receita
+from receitas.filters import ReceitaFilter
+from receitas.models import Receita, Categoria
 from django.contrib.auth.models import User
 from django.contrib import auth, messages
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 
+
 def index(request):
 
+    #lista receitas
     receitas = Receita.objects.order_by('-date_receita').filter(publicada=True)
-    paginator = Paginator(receitas, 6)
+    #Buscando Categorias
+    categorias = Categoria.objects.all()
+    #Verificando se buscar esta no GET
+    if 'buscar' in request.GET:
+        nome_a_buscar = request.GET['buscar']
+        if 'buscar':
+            receitas = receitas.filter(nome_receita__icontains=nome_a_buscar)
+    #Filtro receitas
+    receita_list = ReceitaFilter(request.GET, queryset=receitas)
+    #Paginação
+    paginator = Paginator(receita_list.qs, 1)
     page = request.GET.get('page')
     receitas_por_pagina = paginator.get_page(page)
-
+    #Montagem da estrutura de dados para view
     dados = {
-        'receitas' : receitas_por_pagina
+        'receitas' : receitas_por_pagina,
+        'filter' : receita_list,
+        'categorias' : categorias
     }
-
-    return render(request,'receitas/index.html', dados)
+    print(dados)
+    #Return view
+    return render(request, 'receitas/index.html', dados)
 
 def receita(request, receita_id):
     receita = get_object_or_404(Receita, pk=receita_id)

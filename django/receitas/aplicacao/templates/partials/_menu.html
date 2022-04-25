@@ -68,9 +68,10 @@
                             </ul>
 
                             <!-- Formulario de busca -->
-                            <div class="search-btn">
-                                <i class="fa fa-search" aria-hidden="true"></i>
-                            </div>
+                            <form action="{% url 'index' %}">
+                                <input type="search" name="buscar" placeholder="O que está procurando...">
+                                <button type="submit"><i class="fa fa-search" aria-hidden="true"></i></button>
+                            </form>
                             <!-- Formulario de busca -->
 
                         </div>
