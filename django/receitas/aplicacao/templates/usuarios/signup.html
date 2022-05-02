@@ -2,33 +2,32 @@
 {% extends 'base.html' %}
 {% load static %}
 {% block content %}
+
 <div class="contact-area section-padding-0-80">
     <div class="container">
         <div class="row">
             <div class="col-12">
                 <div class="section-heading">
-                    <h2>Login</h2>
+                    <h2>Criar conta</h2>
                 </div>
             </div>
         </div>
         <div class="row">
             <div class="col-12">
                 <div class="contact-form-area">
-                    <form method="POST" action="{% url 'login' %}">
+                    <form action="{% url 'cadastro' %}" method="POST">
                         {% csrf_token %}
                         <div class="row">
                             {% for field in form %}
-                            <div class="col-12 col-lg-12">
-                                <b>{{ field.label }}</b>
-                                <br /> 
-                                {{ field }}
-                                <br />
-                                {{ field.errors }}
-                            </div>
-                            {% endfor %}
+                                <div class="col-12 col-lg-12">
+                                    <b>{{ field.label }}</b>
+                                    <br /> 
+                                    {{ field }}
+                                    <br /> 
+                                </div>
+                            {% endfor %}   
                         </div>
-                        <button class="btn btn-success" type="submit">Login</button>
-                        <a class="btn btn-primary" href="/usuarios/cadastro/">Ainda não tem conta? Clique aqui</a>
+                        <button class="btn btn-success" type="submit">Cadastrar</button> 
                     </form>
                 </div>
             </div>

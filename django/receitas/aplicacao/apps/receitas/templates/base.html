@@ -23,15 +23,8 @@
 
 <body>
 
-    <div id="preloader">
-        <i class="circle-preloader"></i>
-        <img src="{% static 'img/core-img/pizza.png' %}" alt="">
-    </div>
-    {% include 'partials/_menu.html' %}
-
     {% block content %} {% endblock %}
-    
-    {% include 'partials/_footer.html' %}
+
     <!-- ##### All Javascript Files ##### -->
     <!-- jQuery-2.2.4 js -->
     <script src="{% static 'js/jquery/jquery-2.2.4.min.js' %}"></script>

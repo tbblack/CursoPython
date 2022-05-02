@@ -1,0 +1,55 @@
+
+<!-- Search Wrapper -->
+<div class="search-wrapper">
+    <!-- Close Btn -->
+    <div class="close-btn"><i class="fa fa-times" aria-hidden="true"></i></div>
+
+    <div class="container">
+        <div class="row">
+            <div class="col-12">
+                <form action="">
+                    <input type="search" name="buscar" placeholder="O que está procurando...">
+                    <button type="submit"><i class="fa fa-search" aria-hidden="true"></i></button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<form method="get">
+    {{ filter }}
+    <input type="submit" />
+</form>
+
+
+<!-- ##### Best Receipe Area Start ##### -->
+<section class="best-receipe-area">
+    <div class="container">
+        <div class="row">
+
+            {% if receitas  %}
+                {% for receita in filter.qs %}
+
+                <!-- Single Best Receipe Area -->
+                <div class="col-12 col-sm-6 col-lg-4">
+                    <div class="single-best-receipe-area mb-30">
+                        {% if receita.fot_receita == '' %}
+                            <img src="" alt="">
+                        {% else %}
+                            <img src="{{ receita.fot_receita.url }}" alt="">
+                        {% endif %}
+                        <div class="receipe-content">
+                            <a href="{% url 'receita' receita.id %}">
+                                <h5>{{ receita.nome_receita }}</h5>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                {% endfor %}
+            {% else %}
+            {% endif %}
+
+        </div>
+    </div>
+</section>

@@ -38,7 +38,7 @@
                 <nav class="classy-navbar justify-content-between" id="deliciousNav">
 
                     <!-- Logo -->
-                    <a class="nav-brand" href="{% url 'index' %}"><img src="{% static 'img/core-img/logo.png' %}" alt=""></a>
+                    <a class="nav-brand" href="{% url 'receitas:lista-receitas' %}"><img src="{% static 'img/core-img/logo.png' %}" alt=""></a>
 
                     <!-- Navbar Toggler -->
                     <div class="classy-navbar-toggler">
@@ -57,23 +57,17 @@
                         <div class="classynav">
                             <ul>
                                 {% if user.is_authenticated %}
-                                    <li><a href="{% url 'index' %}">Página principal</a></li>
-                                    <li><a href="{% url 'dashboard' %}">Minhas receitas</a></li>
-                                    <li><a href="{% url 'logout' %}">Logout</a></li>
-                                    <li><a href="{% url 'cria_receita' %}">Criar receita</a></li>
+                                    <li><a href="/lista-receitas/">Página principal</a></li>
+                                    <li><a href="/usuarios/index/">Minhas receitas</a></li>
+                                    <li><a href="/cria-receitas/">Criar receita</a></li>
+                                    <li><a href="/usuarios/logout/">Logout</a></li>
+                                    <li>olá, {{ request.user.username }}</li>
                                 {% else %}
-                                    <li><a href="{% url 'cadastro' %}">Cadastro</a></li>
-                                    <li><a href="{% url 'login' %}">Login</a></li>
+                                    <li><a href="/lista-receitas/">Página principal</a></li>
+                                    <li><a href="/usuarios/login/">Login</a></li>
+                                    <li><a href="/usuarios/signup/">Cadastro</a></li>
                                 {% endif %}
                             </ul>
-
-                            <!-- Formulario de busca -->
-                            <form action="{% url 'index' %}">
-                                <input type="search" name="buscar" placeholder="O que está procurando...">
-                                <button type="submit"><i class="fa fa-search" aria-hidden="true"></i></button>
-                            </form>
-                            <!-- Formulario de busca -->
-
                         </div>
                         <!-- Nav End -->
                     </div>

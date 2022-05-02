@@ -1,12 +1,15 @@
 from django.urls import path
+from django.contrib import admin
 
 from .views import *
+from receitas import views
+
+app_name = 'receitas'
 
 urlpatterns = [
-    path('', index, name='index'),
-    path('<int:receita_id>', receita, name='receita'),
-    path('cria/receita', cria_receita, name='cria_receita'),
-    path('deleta/<int:receita_id>', deleta_receita, name='deleta_receita'),
-    path('edita/<int:receita_id>', edita_receita, name='edita_receita'),
-    path('atualiza_receita', atualiza_receita, name='atualiza_receita')
+    path('admin/', admin.site.urls),
+    path('', views.TemplateHomeView.as_view()),
+    path('lista-receitas/', views.ReceitaListView.as_view(), name='lista-receitas'),
+    path('cria-receitas/', views.ReceitaCreateView.as_view()),
+    path('receita-detalhes/<int:pk>', views.ReceitaDetailView.as_view(), name='receita-detalhes')
 ]
