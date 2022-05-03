@@ -15,3 +15,4 @@ class ReceitaFilter(django_filters.FilterSet):
 
         self.filters["categoria"].queryset=Categoria.objects.all()
         self.filters["categoria"].field.widget.attrs.update({"class": "form-control", 'onchange': 'this.form.submit()'})
+        

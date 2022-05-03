@@ -4,7 +4,7 @@
 {% block content %}
 <div class="ml-5 mr-5">
     <h1>Receitas</h1>
-    <form action="" method="post">
+    <form action="" method="post" enctype="multipart/form-data">
         {% csrf_token %}
         <div class="row">
             {% for field in form %}

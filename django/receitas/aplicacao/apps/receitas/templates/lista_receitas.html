@@ -4,29 +4,23 @@
 {% block content %}
 
 <section class="best-receipe-area">
-    <div class="container">
-
-            
+    <div class="container"> 
         <form method="get" >
             <div class="row">
                 <div class="col-2">
                     <button class="btn btn-success form-control" type="submit">Buscar</button>
                 </div>
-                <div class="col-6">              
-                    {{ filter.form.nome_receita }}
-                </div>
-                <div class="col-4">
-                    {{ filter.form.categoria }}
-                </div>
+                {% for filtro in filter.form %}
+                    <div>
+                        {{ filtro }}
+                    </div>
+                {% endfor %}
+                
             </div>
-            
         </form>
-
         <div class="row">
-
             {% if object_list  %}
                 {% for receita in object_list %}
-
                 <!-- Single Best Receipe Area -->
                 <div class="col-12 col-sm-6 col-lg-4">
                     <div class="single-best-receipe-area mb-30">
@@ -42,11 +36,9 @@
                         </div>
                     </div>
                 </div>
-
                 {% endfor %}
             {% else %}
             {% endif %}
-
         </div>
     </div>
 </section>

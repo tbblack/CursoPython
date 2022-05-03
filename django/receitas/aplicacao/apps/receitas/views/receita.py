@@ -5,7 +5,7 @@ from django.contrib import auth, messages
 from django_filters.views import FilterView
 
 
-from django.views.generic import TemplateView, CreateView, ListView, DetailView
+from django.views.generic import TemplateView, CreateView, DetailView, UpdateView
 from receitas.forms import ReceitaForm
 
 
@@ -29,6 +29,12 @@ class ReceitaDetailView(DetailView):
     model = Receita
     template_name = 'receita_detalhes.html'
     context_object_name = 'receita'
-
+    
+class ReceitaUpdateView(UpdateView):
+    model = Receita
+    template_name = 'edita_receita.html'
+    context_object_name = 'receita'
+    form_class = ReceitaForm
+    success_url = '/lista-receitas/'
 
 
